@@ -365,12 +365,13 @@ rb_tree::node *rb_tree::delete_node(node *now, int data)
 {
     /*
     Three step
+    0.find value
     1.find heir
     2.determine it's which case
     3.fix
     */
 
-    // Step 1.
+    // Step 0.find value
     node *del = now;
     while (del)
     {
@@ -390,6 +391,7 @@ rb_tree::node *rb_tree::delete_node(node *now, int data)
     if (!del)
         return now;
 
+    //Step 1.find heir
     node *s, *p;
     while (true)
     {
@@ -447,11 +449,6 @@ rb_tree::node *rb_tree::delete_node(node *now, int data)
                         del_dir = 0; // right
                         del_s = del_p->lchild;
                     }
-                    // if (del_dir) // 0 right 1 left
-                    //     del_s = del_p->lchild;
-                    // else
-                    //     del_s = del_p->rchild;
-                    // del_dir = !del_dir;
                 }
             }
             else
@@ -511,38 +508,10 @@ rb_tree::node *rb_tree::delete_node(node *now, int data)
                     if (child->rchild && child->rchild->color == RED) // RR rotation
                     {
                         del_p = RR_rotation(del_p, child);
-
-                        // del_p->rchild = child->lchild;
-                        // child->lchild = del_p;
-                        // child->color = RED;
-                        // child->rchild->color = BLACK;
-                        // del_p->color = BLACK;
-
-                        // child->parent = del_p->parent;
-                        // del_p->parent = child;
-                        // if (del_p->rchild)
-                        //     del_p->rchild->parent = del_p;
                     }
                     else if (child->rchild && child->rchild->color == RED) // RL rotaton
                     {
                         del_p = RL_rotation(del_p, child);
-
-                        // node *grandson = child->lchild;
-                        // del_p->rchild = grandson->lchild;
-                        // child->lchild = grandson->rchild;
-                        // grandson->lchild = del_p;
-                        // grandson->rchild = child;
-                        // grandson->color = RED;
-                        // grandson->rchild->color = BLACK;
-                        // del_p->color = BLACK;
-
-                        // grandson->parent = del_p->parent;
-                        // del_p->parent = grandson;
-                        // child->parent = grandson;
-                        // if (del_p->rchild)
-                        //     del_p->rchild->parent = del_p;
-                        // if (child->lchild)
-                        //     child->lchild->parent = child;
                     }
                 }
                 if (del_p->parent)
@@ -556,38 +525,10 @@ rb_tree::node *rb_tree::delete_node(node *now, int data)
                     if (child->lchild && child->lchild->color == RED) // LL rotation
                     {
                         del_p = LL_rotation(del_p, child);
-
-                        // del_p->lchild = child->rchild;
-                        // child->rchild = del_p;
-                        // child->color = RED;
-                        // child->lchild->color = BLACK;
-                        // del_p->color = BLACK;
-
-                        // child->parent = del_p->parent;
-                        // del_p->parent = child;
-                        // if (del_p->lchild)
-                        //     del_p->lchild->parent = del_p;
                     }
                     else if (child->rchild && child->rchild->color == RED) // LR rotaton
                     {
                         del_p = LR_rotation(del_p, child);
-
-                        // node *grandson = child->rchild;
-                        // del_p->lchild = grandson->rchild;
-                        // child->rchild = grandson->lchild;
-                        // grandson->lchild = child;
-                        // grandson->rchild = del_p;
-                        // grandson->color = RED;
-                        // grandson->lchild->color = BLACK;
-                        // del_p->color = BLACK;
-
-                        // grandson->parent = del_p->parent;
-                        // del_p->parent = grandson;
-                        // child->parent = grandson;
-                        // if (del_p->lchild)
-                        //     del_p->lchild->parent = del_p;
-                        // if (child->rchild)
-                        //     child->rchild->parent = child;
                     }
                     if (del_p->parent)
                         del_p->parent->rchild = del_p;
