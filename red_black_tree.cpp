@@ -509,7 +509,7 @@ rb_tree::node *rb_tree::delete_node(node *now, int data)
                     {
                         del_p = RR_rotation(del_p, child);
                     }
-                    else if (child->rchild && child->rchild->color == RED) // RL rotaton
+                    else if (child->lchild && child->lchild->color == RED) // RL rotaton
                     {
                         del_p = RL_rotation(del_p, child);
                     }
